@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="flex justify-around text-3xl">
+    <nav className="flex justify-start gap-5 text-xl">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/Spinner">Spinner</NavLink>
     </nav>
