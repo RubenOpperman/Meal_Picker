@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/spinner">Spinner</Link>
+    <nav className="flex justify-around text-3xl">
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/Spinner">Spinner</NavLink>
     </nav>
   );
 }
