@@ -1,10 +1,18 @@
 import "./App.css";
-import Header from "./components/Header.jsx";
+import Home from "./pages/Home.jsx";
+
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Header name="ruben" />
+      <nav>
+        <Link to="/">Home</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </>
   );
 }
