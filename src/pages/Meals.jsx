@@ -1,5 +1,6 @@
 import { useState, useContext, useRef } from "react";
 import { ListContext } from "../context/ListContext.js";
+import { MealCard } from "../components/MealCard.jsx";
 
 export function Meals() {
   const [isOpen, setIsOpen] = useState(false);
@@ -177,8 +178,13 @@ export function Meals() {
         )}
       </div>
 
-      <div>
-        <h1> Meals display</h1>
+      <div className="">
+        <h1 className="p-5 my-2 text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 sm:text-6xl text-balance">
+          Meals display
+        </h1>
+        <div className="">
+          <MealCard dishList={list} />
+        </div>
       </div>
     </>
   );
