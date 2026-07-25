@@ -1,9 +1,27 @@
-export function MealCard({ dishList }) {
+export function MealCard({ dishList, setList }) {
   dishList.map((dishList) => console.log(dishList));
+  const list = dishList;
+
+  function RemoveDish(IdToRemove) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete This dish?",
+    );
+    if (confirmed) {
+      setList(
+        list.filter((dish) => {
+          return dish.id !== IdToRemove;
+        }),
+      );
+    }
+  }
+
+  function EditDish() {
+    console.log("Edit");
+  }
 
   return (
-    <div className="bg-white  w-[full] h-auto p-2 flex-col sm:flex-row ">
-      {dishList.map((dish) => (
+    <div className="bg-white h-auto p-2 flex flex-col  ">
+      {list.map((dish) => (
         <div
           key={dish.id}
           className="w-[95%] max-w-sm border border-gray-100 shadow-md rounded-2xl p-4 m-2 bg-white flex flex-col  justify-between font-sans transition-all duration-200 hover:shadow-lg"
@@ -55,6 +73,15 @@ export function MealCard({ dishList }) {
                 {dish.healthy ? "Healthy" : "Standard"}
               </span>
             </div>
+          </div>
+
+          <div className="flex justify-around">
+            <button onClick={() => EditDish()} className="">
+              Edit
+            </button>
+            <button onClick={() => RemoveDish(dish.id)} className="">
+              Delete
+            </button>
           </div>
         </div>
       ))}

@@ -183,7 +183,7 @@ export function Meals() {
           Meals display
         </h1>
         <div className="">
-          <MealCard dishList={list} />
+          <MealCard dishList={list} setList={setList} />
         </div>
       </div>
     </>
