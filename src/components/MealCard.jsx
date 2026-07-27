@@ -1,5 +1,10 @@
+import EditModal from "./EditModal";
+import { useState } from "react";
 export function MealCard({ dishList, setList }) {
-  dishList.map((dishList) => console.log(dishList));
+  //dishList.map((dishList) => console.log(dishList));
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const list = dishList;
 
   function RemoveDish(IdToRemove) {
@@ -15,8 +20,11 @@ export function MealCard({ dishList, setList }) {
     }
   }
 
-  function EditDish() {
-    console.log("Edit");
+  const [selectedDish, setSelectedDish] = useState(null);
+
+  function EditDish(dish) {
+    setSelectedDish(dish);
+    setIsModalOpen(true);
   }
 
   return (
@@ -75,16 +83,30 @@ export function MealCard({ dishList, setList }) {
             </div>
           </div>
 
-          <div className="flex justify-around">
-            <button onClick={() => EditDish()} className="">
+          <div className="flex justify-even items-center border-t border-slate-100 bg-slate-50/50 p-3 mt-4 rounded-b-xl gap-2">
+            <button
+              onClick={() => EditDish(dish)}
+              className="flex-1 py-2 px-4 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-sm transition-all duration-200 cursor-pointer active:scale-98"
+            >
               Edit
             </button>
-            <button onClick={() => RemoveDish(dish.id)} className="">
+            <button
+              onClick={() => RemoveDish(dish.id)}
+              className="flex-1 py-2 px-4 text-sm font-semibold text-rose-600 hover:text-white hover:bg-rose-600 border border-rose-200 hover:border-rose-600 rounded-lg transition-all duration-200 cursor-pointer active:scale-98"
+            >
               Delete
             </button>
           </div>
         </div>
       ))}
+      <EditModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        dish={selectedDish}
+        key={selectedDish?.id || "empty"}
+        dishList={list}
+        setList={setList}
+      />
     </div>
   );
 }

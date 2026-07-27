@@ -73,7 +73,7 @@ export function Meals() {
               Enter Dish info
             </h3>
 
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form onSubmit={handleSubmit}>
               <div className="py-2">
                 <label className="text-md font-medium text-slate-700 " name="">
                   Name:{" "}
