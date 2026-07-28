@@ -29,7 +29,7 @@ export function Meals() {
       lastCooked: null,
     };
     console.log(newDish);
-    setList([...list, newDish]);
+    setList([newDish, ...list]);
   };
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -73,7 +73,7 @@ export function Meals() {
               Enter Dish info
             </h3>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} ref={formRef}>
               <div className="py-2">
                 <label className="text-md font-medium text-slate-700 " name="">
                   Name:{" "}
