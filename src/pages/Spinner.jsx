@@ -3,6 +3,8 @@ import { Wheel } from "react-custom-roulette-r19";
 import { useContext, useState } from "react";
 import { ListContext } from "../context/ListContext";
 
+import { Filter } from "../components/Filter";
+
 export default function Spinner() {
   const { list } = useContext(ListContext);
   const [mustSpin, setMustSpin] = useState(false);
@@ -22,6 +24,7 @@ export default function Spinner() {
 
   return (
     <>
+      <Filter />
       <h1 className="text-5xl font-bold text-center text-slate-800 ">
         🍽️ Dinner Spinner
       </h1>
@@ -67,7 +70,7 @@ text-white shadow-lg
             </h2>
           </div>
         ) : (
-          "Spin That wheel!"
+          ""
         )}
       </div>
     </>
