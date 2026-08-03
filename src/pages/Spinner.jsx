@@ -25,7 +25,7 @@ export default function Spinner() {
   return (
     <>
       <Filter />
-      <h1 className="text-5xl font-bold text-center text-slate-800 ">
+      <h1 className="text-5xl font-bold text-center my-5 text-slate-800 ">
         🍽️ Dinner Spinner
       </h1>
 
@@ -63,7 +63,9 @@ text-white shadow-lg
       <div className="flex justify-center ">
         {winnerIndex !== undefined ? (
           <div className="mt-10 text-center">
-            <p className="text-slate-500 font-bold text-xl">Today's Meal</p>
+            <p className="text-slate-500 font-bold text-xl">
+              Today's Meal Is...
+            </p>
 
             <h2 className="text-4xl font-bold text-emerald-600 mt-2">
               {winner}
