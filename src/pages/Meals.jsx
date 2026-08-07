@@ -1,11 +1,45 @@
 import { useState, useContext, useRef } from "react";
 import { ListContext } from "../context/ListContext.js";
 import { MealCard } from "../components/MealCard.jsx";
+import { Filter } from "../components/Filter";
 
 export function Meals() {
   const [isOpen, setIsOpen] = useState(false);
   const { list, setList } = useContext(ListContext);
   const formRef = useRef(null);
+
+  const [filteredData, setFilteredData] = useState({
+    category: "",
+    prepTime: "",
+    difficulty: "",
+    healthy: false,
+    favourite: false,
+  });
+
+  const filteredMeals = list.filter((dish) => {
+    const categoryMatch =
+      !filteredData.category || dish.category === filteredData.category;
+
+    const prepMatch =
+      !filteredData.prepTime || dish.prepTime <= filteredData.prepTime;
+
+    const difficultyMatch =
+      !filteredData.difficulty || dish.difficulty == filteredData.difficulty;
+
+    const healthyMatch =
+      !filteredData.healthy || dish.healthy == filteredData.healthy;
+
+    const favouriteMatch =
+      !filteredData.favourite || dish.favourite == filteredData.favourite;
+
+    return (
+      categoryMatch &&
+      prepMatch &&
+      difficultyMatch &&
+      healthyMatch &&
+      favouriteMatch
+    );
+  });
 
   const findAvailableID = (items) => {
     const existingIDs = items.map((item) => item.id);
@@ -66,6 +100,7 @@ export function Meals() {
         >
           Add Dish
         </button>
+        <Filter filteredData={filteredData} setFilteredData={setFilteredData} />
 
         {isOpen && (
           <div className="bg-white p-2 my-3 rounded-xl ">
@@ -183,7 +218,18 @@ export function Meals() {
           Meals display
         </h1>
         <div className="">
-          <MealCard dishList={list} setList={setList} />
+          {filteredMeals.length > 0 ? (
+            <MealCard dishList={filteredMeals} setList={setList} />
+          ) : (
+            <div className="border-2 border-red-500 p-2 m-4 rounded-xl">
+              <p className="text-black text-lg font-bold tracking-wide">
+                No meals available to display!
+              </p>
+              <p className="text-black text-md mt-1">
+                Try adjusting your filters or adding new items.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>

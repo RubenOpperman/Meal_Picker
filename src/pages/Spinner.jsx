@@ -10,8 +10,42 @@ export default function Spinner() {
   const [mustSpin, setMustSpin] = useState(false);
   const [winnerIndex, setWinnerIndex] = useState();
   const [winner, setWinner] = useState();
+  const [filteredData, setFilteredData] = useState({
+    category: "",
+    prepTime: "",
+    difficulty: "",
+    healthy: false,
+    favourite: false,
+  });
 
-  const wheelData = list.map((dish) => ({ option: dish.name }));
+  const filteredMeals = list.filter((dish) => {
+    const categoryMatch =
+      !filteredData.category || dish.category === filteredData.category;
+
+    const prepMatch =
+      !filteredData.prepTime || dish.prepTime <= filteredData.prepTime;
+
+    const difficultyMatch =
+      !filteredData.difficulty || dish.difficulty == filteredData.difficulty;
+
+    const healthyMatch =
+      !filteredData.healthy || dish.healthy == filteredData.healthy;
+
+    const favouriteMatch =
+      !filteredData.favourite || dish.favourite == filteredData.favourite;
+
+    return (
+      categoryMatch &&
+      prepMatch &&
+      difficultyMatch &&
+      healthyMatch &&
+      favouriteMatch
+    );
+  });
+
+  console.log(filteredMeals);
+
+  const wheelData = filteredMeals.map((dish) => ({ option: dish.name }));
 
   const handleSpin = () => {
     if (!mustSpin) {
@@ -24,7 +58,8 @@ export default function Spinner() {
 
   return (
     <>
-      <Filter />
+      <Filter filteredData={filteredData} setFilteredData={setFilteredData} />
+
       <h1 className="text-5xl font-bold text-center my-5 text-slate-800 ">
         🍽️ Dinner Spinner
       </h1>
@@ -33,17 +68,28 @@ export default function Spinner() {
         Let fate decide tonight's meal.
       </p>
       <div className="flex justify-center">
-        <Wheel
-          mustStartSpinning={mustSpin}
-          prizeNumber={winnerIndex}
-          data={wheelData}
-          backgroundColors={["#3e3e3e", "#df3428"]}
-          textColors={["#ffffff"]}
-          onStopSpinning={() => {
-            setMustSpin(false);
-            setWinner(wheelData[winnerIndex].option);
-          }}
-        />
+        {filteredMeals.length > 0 ? (
+          <Wheel
+            mustStartSpinning={mustSpin}
+            prizeNumber={winnerIndex}
+            data={wheelData}
+            backgroundColors={["#3e3e3e", "#df3428"]}
+            textColors={["#ffffff"]}
+            onStopSpinning={() => {
+              setMustSpin(false);
+              setWinner(wheelData[winnerIndex].option);
+            }}
+          />
+        ) : (
+          <div className="border-2 border-red-500 p-2 rounded-xl">
+            <p className="text-black text-lg font-bold tracking-wide">
+              No meals available to spin!
+            </p>
+            <p className="text-black text-md mt-1">
+              Try adjusting your filters or adding new items.
+            </p>
+          </div>
+        )}
       </div>
       <button
         className="

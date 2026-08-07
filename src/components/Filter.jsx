@@ -1,4 +1,4 @@
-export function Filter() {
+export function Filter({ filteredData, setFilteredData }) {
   return (
     <div className="w-full max-w-md sm:rounded-3xl bg-slate-800/95 backdrop-blur-lg shadow-2xl border border-slate-700 p-6">
       <h2 className="text-2xl font-bold text-white mb-6">🔍 Filter Meals</h2>
@@ -16,12 +16,16 @@ export function Filter() {
           <select
             id="category"
             className="w-full rounded-xl border border-slate-600 bg-slate-700 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            value={filteredData.category}
+            onChange={(e) =>
+              setFilteredData({ ...filteredData, category: e.target.value })
+            }
           >
-            <option>All</option>
-            <option>Breakfast</option>
-            <option>Lunch</option>
-            <option>Dinner</option>
-            <option>Dessert</option>
+            <option value={""}>All</option>
+            <option value={"Breakfast"}>Breakfast</option>
+            <option value={"Lunch"}>Lunch</option>
+            <option value={"Dinner"}>Dinner</option>
+            <option value={"Dessert"}>Dessert</option>
           </select>
         </div>
 
@@ -39,6 +43,10 @@ export function Filter() {
             type="number"
             placeholder="e.g. 30"
             className="w-full rounded-xl border border-slate-600 bg-slate-700 text-white px-4 py-3 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            value={filteredData.prepTime}
+            onChange={(e) => {
+              setFilteredData({ ...filteredData, prepTime: e.target.value });
+            }}
           />
         </div>
 
@@ -54,13 +62,20 @@ export function Filter() {
           <select
             id="difficulty"
             className="w-full rounded-xl border border-slate-600 bg-slate-700 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            value={filteredData.difficulty}
+            onChange={(e) =>
+              setFilteredData({
+                ...filteredData,
+                difficulty: e.target.value,
+              })
+            }
           >
-            <option>All</option>
-            <option>⭐ 1</option>
-            <option>⭐⭐ 2</option>
-            <option>⭐⭐⭐ 3</option>
-            <option>⭐⭐⭐⭐ 4</option>
-            <option>⭐⭐⭐⭐⭐ 5</option>
+            <option value={""}>All</option>
+            <option value={"1"}>⭐ 1</option>
+            <option value={"2"}>⭐⭐ 2</option>
+            <option value={"3"}>⭐⭐⭐ 3</option>
+            <option value={"4"}>⭐⭐⭐⭐ 4</option>
+            <option value={"5"}>⭐⭐⭐⭐⭐ 5</option>
           </select>
         </div>
 
@@ -68,18 +83,45 @@ export function Filter() {
         <label className="flex items-center justify-between rounded-xl bg-slate-700 px-4 py-3 cursor-pointer hover:bg-slate-600 transition">
           <span className="text-white font-medium">🥗 Healthy Only</span>
 
-          <input type="checkbox" className="h-5 w-5 accent-green-500" />
+          <input
+            type="checkbox"
+            className="h-5 w-5 accent-green-500"
+            value={filteredData.healthy}
+            checked={filteredData.healthy}
+            onChange={(e) =>
+              setFilteredData({ ...filteredData, healthy: e.target.checked })
+            }
+          />
         </label>
 
         {/* Favourite */}
         <label className="flex items-center justify-between rounded-xl bg-slate-700 px-4 py-3 cursor-pointer hover:bg-slate-600 transition">
           <span className="text-white font-medium">❤️ Favourites</span>
 
-          <input type="checkbox" className="h-5 w-5 accent-red-500" />
+          <input
+            type="checkbox"
+            className="h-5 w-5 accent-red-500"
+            value={filteredData.favourite}
+            checked={filteredData.favourite}
+            onChange={(e) => {
+              setFilteredData({ ...filteredData, favourite: e.target.checked });
+            }}
+          />
         </label>
 
-        <button className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white hover:bg-blue-500 active:scale-[0.98] transition">
-          Apply Filters
+        <button
+          className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white hover:bg-blue-500 active:scale-[0.98] transition"
+          onClick={() =>
+            setFilteredData({
+              category: "",
+              prepTime: "",
+              difficulty: "",
+              healthy: false,
+              favourite: false,
+            })
+          }
+        >
+          Reset Filters
         </button>
       </div>
     </div>
