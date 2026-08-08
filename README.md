@@ -103,7 +103,10 @@ Some features I would like to add or improve in the future:
 
 ## 📸 Screenshots
 
-*Add screenshots of the application here.*
+<img width="415" height="899" alt="Screenshot 2026-08-08 154910" src="https://github.com/user-attachments/assets/74d13197-84e7-48a5-87e5-a57905233060" />
+<img width="419" height="916" alt="Screenshot 2026-08-08 154854" src="https://github.com/user-attachments/assets/a4ba1bbd-6a1d-41a0-a806-59757bb8b937" />
+<img width="426" height="910" alt="Screenshot 2026-08-08 154844" src="https://github.com/user-attachments/assets/652347ff-7d13-4dec-8e65-489df5585f81" />
+
 
 ## 📚 Purpose
 
