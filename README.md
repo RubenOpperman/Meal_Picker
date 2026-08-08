@@ -65,7 +65,7 @@ You will need:
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+git clone https://github.com/RubenOpperman/Meal_Picker.git
 ```
 
 Navigate into the project:
