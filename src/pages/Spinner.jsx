@@ -10,6 +10,7 @@ export default function Spinner() {
   const [mustSpin, setMustSpin] = useState(false);
   const [winnerIndex, setWinnerIndex] = useState();
   const [winner, setWinner] = useState();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filteredData, setFilteredData] = useState({
     category: "",
     prepTime: "",
@@ -43,8 +44,6 @@ export default function Spinner() {
     );
   });
 
-  console.log(filteredMeals);
-
   const wheelData = filteredMeals.map((dish) => ({ option: dish.name }));
 
   const handleSpin = () => {
@@ -58,12 +57,25 @@ export default function Spinner() {
 
   return (
     <>
-      <Filter filteredData={filteredData} setFilteredData={setFilteredData} />
+      <div className="bg-blue-800 p-5  flex flex-col gap-3">
+        <button
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition duration-200 "
+          onClick={() => {
+            isFilterOpen ? setIsFilterOpen(false) : setIsFilterOpen(true);
+          }}
+        >
+          {isFilterOpen ? "close Filter" : "Open Filter"}
+        </button>
+      </div>
 
+      {isFilterOpen ? (
+        <Filter filteredData={filteredData} setFilteredData={setFilteredData} />
+      ) : (
+        ""
+      )}
       <h1 className="text-5xl font-bold text-center my-5 text-slate-800 ">
         🍽️ Dinner Spinner
       </h1>
-
       <p className="text-center text-slate-500 my-6  font-bold  text-xl">
         Let fate decide tonight's meal.
       </p>
@@ -100,7 +112,7 @@ rounded-full bg-indigo-600
 hover:bg-indigo-700 active:scale-95
 transition-all duration-200
 text-lg font-semibold
-text-white shadow-lg
+text-white shadow-lg mb-3
 "
         onClick={handleSpin}
       >

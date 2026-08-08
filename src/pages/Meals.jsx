@@ -5,6 +5,7 @@ import { Filter } from "../components/Filter";
 
 export function Meals() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { list, setList } = useContext(ListContext);
   const formRef = useRef(null);
 
@@ -62,7 +63,7 @@ export function Meals() {
       timesCooked: 0,
       lastCooked: null,
     };
-    console.log(newDish);
+
     setList([newDish, ...list]);
   };
   const openModal = () => setIsOpen(true);
@@ -90,17 +91,16 @@ export function Meals() {
   };
   return (
     <>
-      <div className="bg-blue-800 p-5">
+      <div className="bg-blue-800 p-5 flex flex-col gap-3">
         <h1 className="my-2 text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 sm:text-6xl text-balance">
           Meals
         </h1>
         <button
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition duration-200 "
-          onClick={openModal}
+          onClick={isOpen ? closeModal : openModal}
         >
-          Add Dish
+          {isOpen ? "close menu" : "add dish"}
         </button>
-        <Filter filteredData={filteredData} setFilteredData={setFilteredData} />
 
         {isOpen && (
           <div className="bg-white p-2 my-3 rounded-xl ">
@@ -211,7 +211,21 @@ export function Meals() {
             </form>
           </div>
         )}
+        <button
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition duration-200 "
+          onClick={() => {
+            isFilterOpen ? setIsFilterOpen(false) : setIsFilterOpen(true);
+          }}
+        >
+          {isFilterOpen ? "close Filter" : "open Filter"}
+        </button>
       </div>
+
+      {isFilterOpen ? (
+        <Filter filteredData={filteredData} setFilteredData={setFilteredData} />
+      ) : (
+        ""
+      )}
 
       <div className="">
         <h1 className="p-5 my-2 text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 sm:text-6xl text-balance">

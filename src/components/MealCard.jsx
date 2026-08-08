@@ -1,5 +1,6 @@
 import EditModal from "./EditModal";
 import { useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 export function MealCard({ dishList, setList }) {
   //dishList.map((dishList) => console.log(dishList));
 
@@ -22,6 +23,19 @@ export function MealCard({ dishList, setList }) {
 
   const [selectedDish, setSelectedDish] = useState(null);
 
+  function Favourite(dish) {
+    const updatedList = list.map((item) => {
+      if (item.id === dish.id) {
+        //console.log(dish.name);
+
+        return { ...item, favourite: !item.favourite };
+      }
+      return item;
+    });
+    console.log("isClicked");
+    setList(updatedList);
+  }
+
   function EditDish(dish) {
     setSelectedDish(dish);
     setIsModalOpen(true);
@@ -39,9 +53,22 @@ export function MealCard({ dishList, setList }) {
             <h2 className="text-lg font-bold text-gray-900 leading-tight">
               {dish.name}
             </h2>
-            <span className="shrink-0 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 bg-amber-50 text-amber-700 rounded-md">
-              {dish.category}
-            </span>
+            <div className="flex flex-row items-center">
+              <span className="shrink-0 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 bg-amber-50 text-amber-700 rounded-md">
+                {dish.category}
+              </span>
+              <span
+                onClick={() => {
+                  Favourite(dish);
+                }}
+              >
+                {dish.favourite ? (
+                  <FaHeart color="#e11d48" /> // Filled Red Heart
+                ) : (
+                  <FaRegHeart color="#64748b" /> // Outlined Gray Heart
+                )}
+              </span>
+            </div>
           </div>
 
           {/* Bottom Section: Separated Metric Grid */}
